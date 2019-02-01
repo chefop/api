@@ -4,6 +4,7 @@
   "description": "App for web app 📟",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,5 +26,14 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+},
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.3.13",
+    "nodemon": "^1.18.9",
+    "morgan": "^1.9.1"
   }
 }
