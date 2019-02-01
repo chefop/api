@@ -15,7 +15,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 router.get('/', (req, res, next) => {
     const limit = parseInt(req.query.count) || 10; // Put a limit
     const offset = parseInt(req.query.offset) || 0;
-    const search = req.query.search || false; // Get the request or flase
+    const search = req.query.search || false; // Get the request or false
     const starters = Starter
         .find()
         .skip(offset)
@@ -35,7 +35,7 @@ router.post('/', (req, res, next) => {
     if (utils.requestIsEmpty(req.body)) { // Check if request body is empty
         res.status(400).json({ message: 'Cannot create starter, empty request.' }); // If enmpty status 400 and send message
     }
-    // Create a Starter with body request
+    // Create a starter with body request
     const starter = new Starter({
         name: req.body.name,
         description: req.body.description,
@@ -47,7 +47,7 @@ router.post('/', (req, res, next) => {
     });
 
     starter
-        .save() // Save Starter
+        .save() // Save starter
         .then(result => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'New starter created with success.',
