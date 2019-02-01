@@ -15,7 +15,7 @@ const ObjectId = require("mongoose").Types.ObjectId;
 router.get('/', (req, res, next) => {
     const limit = parseInt(req.query.count) || 10; // Put a limit
     const offset = parseInt(req.query.offset) || 0;
-    const search = req.query.search || false; // Get the request or flase
+    const search = req.query.search || false; // Get the request or false
     const mainCourse = MainCourse
         .find()
         .skip(offset)
@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
         .sort({ created_at: 1 }).then(mainCourse => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'Main courses fetched successfully',
-                starters: mainCourse
+                mainCourses: mainCourse
             });
         }).catch(err => { // If ko status 500 sans message
             res.status(500).json({ message: err.message });
@@ -35,7 +35,7 @@ router.post('/', (req, res, next) => {
     if (utils.requestIsEmpty(req.body)) { // Check if request body is empty
         res.status(400).json({ message: 'Cannot create main course, empty request.' }); // If enmpty status 400 and send message
     }
-    // Create a Starter with body request
+    // Create a main course with body request
     const mainCourse = new MainCourse({
         name: req.body.name,
         description: req.body.description,
@@ -44,14 +44,15 @@ router.post('/', (req, res, next) => {
         quantity: req.body.quantity,
         allergen: req.body.allergen,
         photo: req.body.photo,
+        baking: req.body.baking,
     });
 
     mainCourse
-        .save() // Save Starter
+        .save() // Save main course
         .then(result => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'New main course created with success.',
-                starter: mainCourse
+                mainCourses: mainCourse
             });
         }).catch(err => { // If ko status 500 and send message
             res.status(500).json({ message: err.message });
@@ -78,7 +79,7 @@ router.delete('/:id', (req, res, next) => {
 // Get one main course
 router.get('/:id', (req, res, next) => {
     if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) { // Check if id is empty, status 400 and message
-        res.status(400).json({ message: 'Cannot get starter, empty request.' });
+        res.status(400).json({ message: 'Cannot get main course, empty request.' });
     }
     const mainCourse = MainCourse
         .findOne({ // Find one main course by id
@@ -87,7 +88,7 @@ router.get('/:id', (req, res, next) => {
         .then(mainCourse => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'Main course fetched successfully',
-                starter: mainCourse
+                mainCourses: mainCourse
             });
         }).catch(err => { // If ko status 500 and send message
             res.status(500).json({ message: err.message });
@@ -99,7 +100,7 @@ router.put('/:id', (req, res, next) => {
     if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) { // Check if id is empty, status 400 and message
         res.status(400).json({ message: 'Cannot put main course, empty request.' });
     }
-    const starter = MainCourse
+    const mainCourse = MainCourse
         .findOne({ // Find one main course by id
             _id: req.params.id
         })
@@ -111,12 +112,13 @@ router.put('/:id', (req, res, next) => {
             mainCourse.quantity = req.body.quantity;
             mainCourse.allergen = req.body.allergen;
             mainCourse.photo = req.body.photo;
+            mainCourse.baking = req.body.baking;
 
             mainCourse.save()
-            .then(starter => {
+            .then(mainCourse => {
                 res.status(200).json({ // If ok status 200, send message and datas
                     message: 'Main course updated with success.',
-                    starter: mainCourse
+                    mainCourses: mainCourse
                 });
             }).catch(err => { // If ko status 500 and send message
                 res.status(500).json({ message: err.message });
