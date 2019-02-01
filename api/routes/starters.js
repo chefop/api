@@ -23,7 +23,6 @@ router.get('/', (req, res, next) => {
         }).catch(err => {
             res.status(500).json({ message: err.message });
         });
-    console.log(starters);
 });
 
 router.post('/', (req, res, next) => {
