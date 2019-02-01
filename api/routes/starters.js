@@ -68,4 +68,23 @@ router.delete('/:id', (req, res, next) => {
     });
 });
 
+router.get('/:id', (req, res, next) => {
+    if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) {
+        res.status(400).json({ message: 'Cannot get starter, empty request.' });
+    }
+    const starter = Starter
+        .findOne({
+            _id: req.params.id,
+            account: req.headers.account
+        })
+        .then(starter => {
+            res.status(200).json({
+                message: 'Starter fetched successfully',
+                starter: starter
+            });
+        }).catch(err => {
+            res.status(500).json({ message: err.message });
+        });
+});
+
 module.exports = router;
