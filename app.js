@@ -1,0 +1,40 @@
+// Call all require
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+// Connexion to mogoose
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/chefop', { useNewUrlParser: true });
+
+// Parsing data
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Const products
+const starters = require('./api/routes/starters');
+
+// Router products
+app.use('/starters', starters);
+
+// Middleware
+app.use((req, res, next) => {
+    next();
+})
+
+app.use((req, res, next) => {
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
+});
+
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
+});
+
+module.exports = app;
