@@ -87,7 +87,7 @@ router.get('/:id', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
     if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) {
-        res.status(400).json({ message: 'Cannot get starter, empty request.' });
+        res.status(400).json({ message: 'Cannot put starter, empty request.' });
     }
     const starter = Starter
         .findOne({
