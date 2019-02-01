@@ -28,11 +28,6 @@ StarterSchema = new mongoose.Schema({
     },
 
     allergen: {
-        type: Number,
-        default: 0
-    },
-
-    starter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Allergen"
     },
