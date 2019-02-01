@@ -73,8 +73,7 @@ router.get('/:id', (req, res, next) => {
     }
     const starter = Starter
         .findOne({
-            _id: req.params.id,
-            account: req.headers.account
+            _id: req.params.id
         })
         .then(starter => {
             res.status(200).json({
@@ -90,6 +89,31 @@ router.put('/:id', (req, res, next) => {
     if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) {
         res.status(400).json({ message: 'Cannot get starter, empty request.' });
     }
+    const starter = Starter
+        .findOne({
+            _id: req.params.id
+        })
+        .then(starter => {
+            starter.name = req.body.name;
+            starter.description = req.body.description;
+            starter.df_price = req.body.df_price;
+            starter.vat = req.body.vat;
+            starter.quantity = req.body.quantity;
+            starter.allergen = req.body.allergen;
+            starter.photo = req.body.photo;
+
+            starter.save()
+            .then(starter => {
+                res.status(200).json({
+                    message: 'Starter updated with success.',
+                    starter: starter
+                });
+            }).catch(err => {
+                res.status(500).json({ message: err.message });
+            });
+        }).catch(err => {
+            res.status(500).json({ message: err.message });
+        });
 });
 
 module.exports = router;
