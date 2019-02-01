@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
     const offset = parseInt(req.query.offset) || 0;
     const search = req.query.search || false;
     const starters = Starter
-        .find({ account: req.headers.account })
+        .find()
         .skip(offset)
         .limit(limit)
         .sort({ created_at: 1 }).then(starters => {
@@ -84,6 +84,12 @@ router.get('/:id', (req, res, next) => {
         }).catch(err => {
             res.status(500).json({ message: err.message });
         });
+});
+
+router.put('/:id', (req, res, next) => {
+    if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) {
+        res.status(400).json({ message: 'Cannot get starter, empty request.' });
+    }
 });
 
 module.exports = router;
