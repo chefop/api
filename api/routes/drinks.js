@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
         .sort({ created_at: 1 }).then(mainCourse => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'Drinks fetched successfully',
-                drink: drink
+                drinks: drink
             });
         }).catch(err => { // If ko status 500 sans message
             res.status(500).json({ message: err.message });
@@ -54,7 +54,7 @@ router.post('/', (req, res, next) => {
         .then(result => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'New drink created with success.',
-                drinks: drink
+                drink: drink
             });
         }).catch(err => { // If ko status 500 and send message
             res.status(500).json({ message: err.message });
@@ -75,8 +75,8 @@ router.delete('/:id', (req, res, next) => {
                 _id: req.params.id
             }).then(result => {
                 res.status(200).json({ // If ok status 200 and send message
-                    drinks: drink,
-                    message: 'Drink deleted'
+                    message: 'Drink deleted',
+                    drink: drink
                 });
             }).catch(err => { // If ko status 500 and send message
                 res.status(500).json({ message: err.message });
@@ -98,7 +98,7 @@ router.get('/:id', (req, res, next) => {
         .then(drink => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'Drink fetched successfully',
-                drinks: drink
+                drink: drink
             });
         }).catch(err => { // If ko status 500 and send message
             res.status(500).json({ message: err.message });
@@ -130,7 +130,7 @@ router.put('/:id', (req, res, next) => {
             .then(drink => {
                 res.status(200).json({ // If ok status 200, send message and datas
                     message: 'Drink updated with success.',
-                    drinks: drink
+                    drink: drink
                 });
             }).catch(err => { // If ko status 500 and send message
                 res.status(500).json({ message: err.message });
