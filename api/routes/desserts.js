@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
         .sort({ created_at: 1 }).then(dessert => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'Dessert fetched successfully',
-                starters: dessert
+                desserts: dessert
             });
         }).catch(err => { // If ko status 500 sans message
             res.status(500).json({ message: err.message });
@@ -51,7 +51,7 @@ router.post('/', (req, res, next) => {
         .then(result => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'New dessert created with success.',
-                starter: dessert
+                dessert: dessert
             });
         }).catch(err => { // If ko status 500 and send message
             res.status(500).json({ message: err.message });
@@ -63,16 +63,24 @@ router.delete('/:id', (req, res, next) => {
     if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) { // Check if id is empty, status 400 and message
         res.status(400).json({ message: 'Cannot delete dessert, empty request.' });
     }
-    Dessert.deleteOne({ // Delete one dessert
-        _id: req.params.id
-    }).then(result => {
-        res.status(200).json({ // If ok status 200 and send message
-            success: true,
-            message: 'Dessert deleted'
+    const dessert = Dessert
+        .findOne({ // Find one main course by id
+            _id: req.params.id
+        })
+        .then(dessert => {
+            Dessert.deleteOne({ // Delete one dessert
+                _id: req.params.id
+            }).then(result => {
+                res.status(200).json({ // If ok status 200 and send message
+                    dessert: dessert,
+                    message: 'Dessert deleted'
+                });
+            }).catch(err => { // If ko status 500 and send message
+                res.status(500).json({ message: err.message });
+            });
+        }).catch(err => { // If ko status 500 and send message
+            res.status(500).json({ message: err.message });
         });
-    }).catch(err => { // If ko status 500 and send message
-        res.status(500).json({ message: err.message });
-    });
 });
 
 // Get one dessert
@@ -87,7 +95,7 @@ router.get('/:id', (req, res, next) => {
         .then(dessert => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'Dessert fetched successfully',
-                starter: dessert
+                dessert: dessert
             });
         }).catch(err => { // If ko status 500 and send message
             res.status(500).json({ message: err.message });
@@ -116,7 +124,7 @@ router.put('/:id', (req, res, next) => {
             .then(dessert => {
                 res.status(200).json({ // If ok status 200, send message and datas
                     message: 'Dessert updated with success.',
-                    starter: dessert
+                    dessert: dessert
                 });
             }).catch(err => { // If ko status 500 and send message
                 res.status(500).json({ message: err.message });
