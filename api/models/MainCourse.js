@@ -4,7 +4,8 @@ MainCourseSchema = new mongoose.Schema({
 
     name: {
         type: String,
-        default: ''
+        required: [true, 'Name is required.'],
+        unique: true
     },
 
     description: {
@@ -14,12 +15,12 @@ MainCourseSchema = new mongoose.Schema({
 
     df_price: {
         type: Number,
-        default: 0
+        required: [true, 'Price is required.']
     },
 
     vat: {
         type: Number,
-        default: 0
+        required: [true, 'Taxes are required.']
     },
 
     quantity: {
@@ -37,9 +38,9 @@ MainCourseSchema = new mongoose.Schema({
         default: ''
     },
 
-    backing: {
+    baking: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Backing"
+        ref: "Baking"
     },
 
     created_at: {
@@ -58,14 +59,14 @@ MainCourseSchema = new mongoose.Schema({
     }
 });
 
-StarterSchema.pre("save", function(next) {
+MainCourseSchema.pre("save", function(next) {
     this.updated_at = Date.now()
     next();
 });
 
-StarterSchema.methods.toJSON = function() {
+MainCourseSchema.methods.toJSON = function() {
     const obj = this.toObject();
     return obj;
 };
 
-module.exports = mongoose.model("Starter", StarterSchema);
+module.exports = mongoose.model("MainCourse", MainCourseSchema);
