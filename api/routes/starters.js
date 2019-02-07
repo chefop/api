@@ -63,16 +63,24 @@ router.delete('/:id', (req, res, next) => {
     if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) { // Check if id is empty, status 400 and message
         res.status(400).json({ message: 'Cannot delete starter, empty request.' });
     }
-    Starter.deleteOne({ // Delete one starter
-        _id: req.params.id
-    }).then(result => {
-        res.status(200).json({ // If ok status 200 and send message
-            success: true,
-            message: 'Starter deleted'
+    const starter = Starter
+        .findOne({ // Find one stater by id
+            _id: req.params.id
+        })
+        .then(starter => {
+            Starter.deleteOne({ // Delete one starter
+                _id: req.params.id
+            }).then(result => {
+                res.status(200).json({ // If ok status 200 and send message
+                    message: 'Starter deleted',
+                    starter: starter
+                });
+            }).catch(err => { // If ko status 500 and send message
+                res.status(500).json({ message: err.message });
+            });
+        }).catch(err => { // If ko status 500 and send message
+            res.status(500).json({ message: err.message });
         });
-    }).catch(err => { // If ko status 500 and send message
-        res.status(500).json({ message: err.message });
-    });
 });
 
 // Get one starter
