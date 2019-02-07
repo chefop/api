@@ -15,11 +15,13 @@ app.use(bodyParser.json());
 const starters = require('./api/routes/starters');
 const mainCourses = require('./api/routes/mainCourses');
 const desserts = require('./api/routes/desserts');
+const drinks = require('./api/routes/drinks');
 
 // Router products
 app.use('/starters', starters);
 app.use('/mainCourses', mainCourses);
 app.use('/desserts', desserts);
+app.use('/drinks', drinks);
 
 // Middleware
 app.use((req, res, next) => {
