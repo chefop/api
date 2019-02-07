@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
     const limit = parseInt(req.query.count) || 10; // Put a limit
     const offset = parseInt(req.query.offset) || 0;
     const search = req.query.search || false; // Get the request or false
-    const dinrk = Drink
+    const drink = Drink
         .find()
         .skip(offset)
         .limit(limit)
