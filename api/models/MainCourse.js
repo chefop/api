@@ -37,9 +37,9 @@ MainCourseSchema = new mongoose.Schema({
         default: ''
     },
 
-    backing: {
+    baking: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Backing"
+        ref: "Baking"
     },
 
     created_at: {
