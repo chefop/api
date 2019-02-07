@@ -4,7 +4,8 @@ DessertSchema = new mongoose.Schema({
 
     name: {
         type: String,
-        default: ''
+        required: [true, 'Name is required.'],
+        unique: true
     },
 
     description: {
@@ -14,12 +15,12 @@ DessertSchema = new mongoose.Schema({
 
     df_price: {
         type: Number,
-        default: 0
+        required: [true, 'Price is required.']
     },
 
     vat: {
         type: Number,
-        default: 0
+        required: [true, 'Taxes are required.']
     },
 
     quantity: {
