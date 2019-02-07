@@ -52,7 +52,7 @@ router.post('/', (req, res, next) => {
         .then(result => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'New main course created with success.',
-                mainCourses: mainCourse
+                mainCourse: mainCourse
             });
         }).catch(err => { // If ko status 500 and send message
             res.status(500).json({ message: err.message });
@@ -88,7 +88,7 @@ router.get('/:id', (req, res, next) => {
         .then(mainCourse => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'Main course fetched successfully',
-                mainCourses: mainCourse
+                mainCourse: mainCourse
             });
         }).catch(err => { // If ko status 500 and send message
             res.status(500).json({ message: err.message });
@@ -118,7 +118,7 @@ router.put('/:id', (req, res, next) => {
             .then(mainCourse => {
                 res.status(200).json({ // If ok status 200, send message and datas
                     message: 'Main course updated with success.',
-                    mainCourses: mainCourse
+                    mainCourse: mainCourse
                 });
             }).catch(err => { // If ko status 500 and send message
                 res.status(500).json({ message: err.message });
