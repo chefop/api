@@ -79,6 +79,8 @@ router.delete('/:id', (req, res, next) => {
             }).catch(err => { // If ko status 500 and send message
                 res.status(500).json({ message: err.message });
             });
+        }).catch(err => { // If ko status 500 and send message
+            res.status(500).json({ message: err.message });
         });
 });
 
