@@ -23,7 +23,7 @@ router.get('/', (req, res, next) => {
         .sort({ created_at: 1 }).then(dessert => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'Dessert fetched successfully',
-                starters: dessert
+                desserts: dessert
             });
         }).catch(err => { // If ko status 500 sans message
             res.status(500).json({ message: err.message });
@@ -51,7 +51,7 @@ router.post('/', (req, res, next) => {
         .then(result => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'New dessert created with success.',
-                starter: dessert
+                dessert: dessert
             });
         }).catch(err => { // If ko status 500 and send message
             res.status(500).json({ message: err.message });
@@ -87,7 +87,7 @@ router.get('/:id', (req, res, next) => {
         .then(dessert => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'Dessert fetched successfully',
-                starter: dessert
+                dessert: dessert
             });
         }).catch(err => { // If ko status 500 and send message
             res.status(500).json({ message: err.message });
@@ -116,7 +116,7 @@ router.put('/:id', (req, res, next) => {
             .then(dessert => {
                 res.status(200).json({ // If ok status 200, send message and datas
                     message: 'Dessert updated with success.',
-                    starter: dessert
+                    dessert: dessert
                 });
             }).catch(err => { // If ko status 500 and send message
                 res.status(500).json({ message: err.message });
