@@ -59,14 +59,14 @@ MainCourseSchema = new mongoose.Schema({
     }
 });
 
-StarterSchema.pre("save", function(next) {
+MainCourseSchema.pre("save", function(next) {
     this.updated_at = Date.now()
     next();
 });
 
-StarterSchema.methods.toJSON = function() {
+MainCourseSchema.methods.toJSON = function() {
     const obj = this.toObject();
     return obj;
 };
 
-module.exports = mongoose.model("Starter", StarterSchema);
+module.exports = mongoose.model("MainCourse", MainCourseSchema);
