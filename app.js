@@ -19,12 +19,14 @@ const starters = require('./api/routes/starters');
 const mainCourses = require('./api/routes/mainCourses');
 const desserts = require('./api/routes/desserts');
 const drinks = require('./api/routes/drinks');
+const allergen = require('./api/routes/allergens');
 
 // Router products
 app.use('/starters', starters);
 app.use('/mainCourses', mainCourses);
 app.use('/desserts', desserts);
 app.use('/drinks', drinks);
+app.use('/allergens', allergen);
 
 // Middleware
 app.use((req, res, next) => {
