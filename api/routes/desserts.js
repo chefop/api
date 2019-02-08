@@ -111,7 +111,7 @@ router.put('/:id', (req, res, next) => {
         .findOne({ // Find one dessert by id
             _id: req.params.id
         })
-        .then(mainCourse => { // Save data
+        .then(dessert => { // Save data
             dessert.name = req.body.name;
             dessert.description = req.body.description;
             dessert.df_price = req.body.df_price;
