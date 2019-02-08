@@ -33,13 +33,13 @@ router.post('/', (req, res, next) => {
     if (utils.requestIsEmpty(req.body))  // Check if request body is empty
         res.status(400).json({ message: 'Cannot create baking, empty request.' }); // If enmpty status 400 and send message
     else{
-      // Create a starter with body request
+      // Create a baking with body request
       const baking = new Baking({
           name: req.body.name,
       });
 
       baking
-          .save() // Save allergen
+          .save() // Save baking
           .then(result => {
               res.status(200).json({ // If ok status 200, send message and datas
                   message: 'New baking created with success.',
@@ -79,7 +79,7 @@ router.get('/:id', (req, res, next) => {
         res.status(400).json({ message: 'Cannot get baking, empty request.' });
     else{
       const baking = Baking
-          .findOne({ // Find one allergen by id
+          .findOne({ // Find one baking by id
               _id: req.params.id
           })
           .then(baking => {
