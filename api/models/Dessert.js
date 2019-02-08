@@ -2,61 +2,47 @@ const mongoose = require("mongoose");
 
 DessertSchema = new mongoose.Schema({
 
-    name: {
-        type: String,
-        required: [true, 'Name is required.'],
-        unique: true
-    },
+  name: {
+      type: String,
+      required: [true, 'Name is required.'],
+      unique: true
+  },
 
-    description: {
-        type: String,
-        default: ''
-    },
+  description: {
+      type: String,
+      default: ''
+  },
 
-    df_price: {
-        type: Number,
-        required: [true, 'Price is required.']
-    },
+  df_price: {
+      type: Number,
+      required: [true, 'Price is required.']
+  },
 
-    vat: {
-        type: Number,
-        required: [true, 'Taxes are required.']
-    },
+  vat: {
+      type: Number,
+      required: [true, 'Taxes are required.']
+  },
 
-    quantity: {
-        type: Number,
-        default: 0
-    },
+  quantity: {
+      type: Number,
+      default: 0
+  },
 
-    allergen: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Allergen"
-    },
+  allergen: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Allergen"
+  },
 
-    photo: {
-        type: String,
-        default: ''
-    },
-
-    created_at: {
-        type: Date,
-        default: Date.now
-    },
-
-    updated_at: {
-        type: Date,
-        default: Date.now
-    }
+  photo: {
+      type: String,
+      default: ''
+  }
 
 }, {
-    shardKey: {
-        _id: "hashed"
-    }
-});
-
-DessertSchema.pre("save", function(next) {
-    this.updated_at = Date.now()
-    next();
+  timestamp: true,
+  shardKey: {
+      _id: "hashed"
+  }
 });
 
 DessertSchema.methods.toJSON = function() {
