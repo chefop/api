@@ -19,7 +19,7 @@ const starters = require('./api/routes/starters');
 const mainCourses = require('./api/routes/mainCourses');
 const desserts = require('./api/routes/desserts');
 const drinks = require('./api/routes/drinks');
-const allergen = require('./api/routes/allergens');
+const allergens = require('./api/routes/allergens');
 
 // Router products
 app.use('/starters', starters);
