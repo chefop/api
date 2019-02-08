@@ -63,7 +63,7 @@ router.delete('/:id', (req, res, next) => {
         res.status(400).json({ message: 'Cannot delete dessert, empty request.' });
     else{
       const dessert = Dessert
-          .findOne({ // Find one main course by id
+          .findOne({ // Find one dessert by id
               _id: req.params.id
           })
           .then(dessert => {
@@ -85,7 +85,7 @@ router.get('/:id', (req, res, next) => {
         res.status(400).json({ message: 'Cannot get dessert, empty request.' });
     else{
       const dessert = Dessert
-          .findOne({ // Find one main course by id
+          .findOne({ // Find one dessert by id
               _id: req.params.id
           })
           .then(dessert => {
