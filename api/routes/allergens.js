@@ -33,7 +33,7 @@ router.post('/', (req, res, next) => {
     if (utils.requestIsEmpty(req.body))  // Check if request body is empty
         res.status(400).json({ message: 'Cannot create allergen, empty request.' }); // If enmpty status 400 and send message
     else{
-      // Create a starter with body request
+      // Create a allergen with body request
       const allergen = new Allergen({
           name: req.body.name,
       });
