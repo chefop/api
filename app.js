@@ -20,6 +20,7 @@ const mainCourses = require('./api/routes/mainCourses');
 const desserts = require('./api/routes/desserts');
 const drinks = require('./api/routes/drinks');
 const allergen = require('./api/routes/allergens');
+const bakings = require('./api/routes/bakings');
 
 // Router products
 app.use('/starters', starters);
@@ -27,6 +28,7 @@ app.use('/mainCourses', mainCourses);
 app.use('/desserts', desserts);
 app.use('/drinks', drinks);
 app.use('/allergens', allergen);
+app.use('/bakings', bakings);
 
 // Middleware
 app.use((req, res, next) => {
