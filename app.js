@@ -4,8 +4,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const config = require('./config/config');
+
 // Connexion to mogoose
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/chefop', { useNewUrlParser: true });
+mongoose.set('useCreateIndex', true)
+mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`, { useNewUrlParser: true });
 
 // Parsing data
 app.use(bodyParser.urlencoded({ extended: true }));
