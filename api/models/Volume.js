@@ -6,27 +6,13 @@ VolumeSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Name is required.'],
     unique: true
-  },
-
-  created_at: {
-    type: Date,
-    default: Date.now
-  },
-
-  updated_at: {
-    type: Date,
-    default: Date.now
   }
 
 }, {
+  timestamp: true,
   shardKey: {
     _id: "hashed"
   }
-});
-
-VolumeSchema.pre("save", function(next) {
-  this.updated_at = Date.now()
-  next();
 });
 
 VolumeSchema.methods.toJSON = function() {
