@@ -22,6 +22,7 @@ const drinks = require('./api/routes/drinks');
 const allergens = require('./api/routes/allergens');
 const bakings = require('./api/routes/bakings');
 const volumes = require('./api/routes/volumes');
+const tables = require('./api/routes/tables');
 
 // Router products
 app.use('/starters', starters);
@@ -31,6 +32,7 @@ app.use('/drinks', drinks);
 app.use('/allergens', allergens);
 app.use('/bakings', bakings);
 app.use('/volumes', volumes);
+app.use('/tables', tables);
 
 // Middleware
 app.use((req, res, next) => {
