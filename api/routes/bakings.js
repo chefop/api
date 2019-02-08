@@ -61,7 +61,7 @@ router.delete('/:id', (req, res, next) => {
               _id: req.params.id
           })
           .then(baking => {
-              Allergen.deleteOne({ // Delete one baking
+              Baking.deleteOne({ // Delete one baking
                   _id: req.params.id
               }).then(result => {
                   res.status(200).json({ // If ok status 200 and send message
