@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
         .find()
         .skip(offset)
         .limit(limit)
-        .sort({ created_at: 1 }).then(mainCourse => {
+        .sort({ created_at: 1 }).then(drink => {
             res.status(200).json({ // If ok status 200, send message and datas
                 message: 'Drinks fetched successfully',
                 drinks: drink
