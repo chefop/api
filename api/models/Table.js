@@ -26,7 +26,7 @@ TableSchema = new mongoose.Schema({
   }
 });
 
-VolumeSchema.methods.toJSON = function() {
+TableSchema.methods.toJSON = function() {
   const obj = this.toObject();
   return obj;
 };
