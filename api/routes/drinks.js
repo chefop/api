@@ -25,119 +25,113 @@ router.get('/', (req, res, next) => {
                 message: 'Drinks fetched successfully',
                 drinks: drink
             });
-        }).catch(err => { // If ko status 500 sans message
-            res.status(500).json({ message: err.message });
         });
 });
 
 // Post one drink
 router.post('/', (req, res, next) => {
-    if (utils.requestIsEmpty(req.body)) { // Check if request body is empty
+    if (utils.requestIsEmpty(req.body)) // Check if request body is empty
         res.status(400).json({ message: 'Cannot create drink, empty request.' }); // If enmpty status 400 and send message
-    }
-    // Create a drink with body request
-    const drink = new Drink({
-        name: req.body.name,
-        description: req.body.description,
-        df_price: req.body.df_price,
-        vat: req.body.vat,
-        quantity: req.body.quantity,
-        allergen: req.body.allergen,
-        photo: req.body.photo,
-        volume : req.body.volume,
-        alcohol : req.body.alcohol,
-        cold_drink : req.body.cold_drink,
-    });
+    else{
+      // Create a drink with body request
+      const drink = new Drink({
+          name: req.body.name,
+          description: req.body.description,
+          df_price: req.body.df_price,
+          vat: req.body.vat,
+          quantity: req.body.quantity,
+          allergen: req.body.allergen,
+          photo: req.body.photo,
+          volume : req.body.volume,
+          alcohol : req.body.alcohol,
+          cold_drink : req.body.cold_drink,
+      });
 
-    drink
-        .save() // Save drink
-        .then(result => {
-            res.status(200).json({ // If ok status 200, send message and datas
-                message: 'New drink created with success.',
-                drink: drink
-            });
-        }).catch(err => { // If ko status 500 and send message
-            res.status(500).json({ message: err.message });
-        });
+      drink
+          .save() // Save drink
+          .then(result => {
+              res.status(200).json({ // If ok status 200, send message and datas
+                  message: 'New drink created with success.',
+                  drink: drink
+              });
+          }).catch(err => { // If ko status 500 and send message
+              res.status(500).json({ message: err.message });
+          });
+    }
 });
 
 // Delete a drink
 router.delete('/:id', (req, res, next) => {
-    if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) { // Check if id is empty, status 400 and message
+    if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id))  // Check if id is empty, status 400 and message
         res.status(400).json({ message: 'Cannot delete drink, empty request.' });
+    else{
+      const drink = Drink
+          .findOne({ // Find drink course by id
+              _id: req.params.id
+          })
+          .then(drink => {
+              Drink.deleteOne({ // Delete one drink
+                  _id: req.params.id
+              }).then(result => {
+                  res.status(200).json({ // If ok status 200 and send message
+                      message: 'Drink deleted',
+                      drink: drink
+                  });
+              });
+          });
     }
-    const drink = Drink
-        .findOne({ // Find drink course by id
-            _id: req.params.id
-        })
-        .then(drink => {
-            Drink.deleteOne({ // Delete one drink
-                _id: req.params.id
-            }).then(result => {
-                res.status(200).json({ // If ok status 200 and send message
-                    message: 'Drink deleted',
-                    drink: drink
-                });
-            }).catch(err => { // If ko status 500 and send message
-                res.status(500).json({ message: err.message });
-            });
-        }).catch(err => { // If ko status 500 and send message
-            res.status(500).json({ message: err.message });
-        });
 });
 
 // Get one drink
 router.get('/:id', (req, res, next) => {
-    if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) { // Check if id is empty, status 400 and message
+    if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id))  // Check if id is empty, status 400 and message
         res.status(400).json({ message: 'Cannot get drink, empty request.' });
+    else{
+      const drink = Drink
+          .findOne({ // Find drink course by id
+              _id: req.params.id
+          })
+          .then(drink => {
+              res.status(200).json({ // If ok status 200, send message and datas
+                  message: 'Drink fetched successfully',
+                  drink: drink
+              });
+          });
     }
-    const drink = Drink
-        .findOne({ // Find drink course by id
-            _id: req.params.id
-        })
-        .then(drink => {
-            res.status(200).json({ // If ok status 200, send message and datas
-                message: 'Drink fetched successfully',
-                drink: drink
-            });
-        }).catch(err => { // If ko status 500 and send message
-            res.status(500).json({ message: err.message });
-        });
 });
 
 // Update one drink
 router.put('/:id', (req, res, next) => {
-    if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id)) { // Check if id is empty, status 400 and message
+    if (utils.requestIsEmpty(req.params.id) || !ObjectId.isValid(req.params.id))  // Check if id is empty, status 400 and message
         res.status(400).json({ message: 'Cannot put drink, empty request.' });
-    }
-    const drink = Drink
-        .findOne({ // Find one drink by id
-            _id: req.params.id
-        })
-        .then(drink => { // Save data
-            drink.name = req.body.name;
-            drink.description = req.body.description;
-            drink.df_price = req.body.df_price;
-            drink.vat = req.body.vat;
-            drink.quantity = req.body.quantity;
-            drink.allergen = req.body.allergen;
-            drink.photo = req.body.photo;
-            drink.volume = req.body.volume;
-            drink.alcohol = req.body.alcohol;
-            drink.cold_drink = req.body.cold_drink;
+    else{
+      const drink = Drink
+          .findOne({ // Find one drink by id
+              _id: req.params.id
+          })
+          .then(drink => { // Save data
+              drink.name = req.body.name;
+              drink.description = req.body.description;
+              drink.df_price = req.body.df_price;
+              drink.vat = req.body.vat;
+              drink.quantity = req.body.quantity;
+              drink.allergen = req.body.allergen;
+              drink.photo = req.body.photo;
+              drink.volume = req.body.volume;
+              drink.alcohol = req.body.alcohol;
+              drink.cold_drink = req.body.cold_drink;
 
-            drink.save()
-            .then(drink => {
-                res.status(200).json({ // If ok status 200, send message and datas
-                    message: 'Drink updated with success.',
-                    drink: drink
-                });
-            }).catch(err => { // If ko status 500 and send message
-                res.status(500).json({ message: err.message });
-            });
-        }).catch(err => { // If ko status 500 and send message
-            res.status(500).json({ message: err.message });
-        });
+              drink.save()
+              .then(drink => {
+                  res.status(200).json({ // If ok status 200, send message and datas
+                      message: 'Drink updated with success.',
+                      drink: drink
+                  });
+              }).catch(err => { // If ko status 500 and send message
+                  res.status(500).json({ message: err.message });
+              });
+          });
+    }
 });
 
 module.exports = router;
