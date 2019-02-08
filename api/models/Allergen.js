@@ -19,14 +19,10 @@ AllergenSchema = new mongoose.Schema({
   }
 
 }, {
+  timestamp: true,
   shardKey: {
     _id: "hashed"
   }
-});
-
-AllergenSchema.pre("save", function(next) {
-  this.updated_at = Date.now()
-  next();
 });
 
 AllergenSchema.methods.toJSON = function() {
