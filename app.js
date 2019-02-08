@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const config = require('./config/config');
 
 // Connexion to mogoose
+mongoose.set('useCreateIndex', true)
 mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`, { useNewUrlParser: true });
 
 // Parsing data
