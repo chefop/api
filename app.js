@@ -26,7 +26,7 @@ app.use('/starters', starters);
 app.use('/mainCourses', mainCourses);
 app.use('/desserts', desserts);
 app.use('/drinks', drinks);
-app.use('/allergens', allergen);
+app.use('/allergens', allergens);
 
 // Middleware
 app.use((req, res, next) => {
