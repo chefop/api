@@ -54,9 +54,10 @@ DrinksSchema = new mongoose.Schema({
   }
 
 }, {
-    shardKey: {
-        _id: "hashed"
-    }
+  timestamp: true,
+  shardKey: {
+      _id: "hashed"
+  }
 });
 
 DrinksSchema.methods.toJSON = function() {
