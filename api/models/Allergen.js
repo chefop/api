@@ -6,16 +6,6 @@ AllergenSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Name is required.'],
     unique: true
-  },
-
-  created_at: {
-    type: Date,
-    default: Date.now
-  },
-
-  updated_at: {
-    type: Date,
-    default: Date.now
   }
 
 }, {
