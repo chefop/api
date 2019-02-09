@@ -3,8 +3,6 @@ node_js:
   - "10.13.0"
 install:
     - npm i
-    - npm -g mocha
-    - npm -g istanbul
 script:
     - SERV_ENV=test nyc mocha --timeout 10000
 notification:
