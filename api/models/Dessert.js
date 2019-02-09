@@ -15,17 +15,20 @@ DessertSchema = new mongoose.Schema({
 
   df_price: {
       type: Number,
-      required: [true, 'Price is required.']
+      required: [true, 'Price is required.'],
+      min: [0, 'Price must be greater than 0.']
   },
 
   vat: {
       type: Number,
-      required: [true, 'Taxes are required.']
+      required: [true, 'Taxes are required.'],
+      min: [0, 'Taxes must be greater than 0.']
   },
 
   quantity: {
       type: Number,
-      default: 0
+      default: 0,
+      min: [0, 'Quantity must be greater than 0.']
   },
 
   allergen: {
