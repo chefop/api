@@ -17,6 +17,7 @@ TableSchema = new mongoose.Schema({
   capacity: {
     type: Number,
     required: [true, 'Capacity is required.'],
+    min: [0, 'Capacity must be greater than 0.']
   }
 
 }, {
