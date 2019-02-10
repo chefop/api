@@ -6,7 +6,7 @@ services:
 install:
   - npm i
 before_script:
-  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"",roles:["readWrite"]});'
+  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"",roles:["readWrite"]}); sleep 15;'
 script:
   - npm test
 notification:
