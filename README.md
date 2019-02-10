@@ -1,57 +1,56 @@
 [![Build Status](https://travis-ci.com/chefop/api.svg?branch=develop)](https://travis-ci.com/chefop/api)
 [![Coverage Status](https://coveralls.io/repos/github/chefop/api/badge.svg?branch=develop)](https://coveralls.io/github/chefop/api?branch=develop)
 
-# Application
+# Project Title
 
-ChefOp API
+ChefOp - API for web app. 📟
 
-## Description
+## Getting Started
 
-API for web app 📟
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-## Installation
+### Installing
 
-Clone and install api.
-
-```bash
+```
 git clone https://github.com/chefop/api.git
+```
+
+```
 cd api/
-npm install
 ```
 
-## Launch
-
-```bash
-npm start
 ```
-### Var :
-
-```bash
-SERV_ENV=dev nodemon server.js
+npm i
 ```
-> Set ENV to dev
 
-> Launch nodemon
+## Running the tests
 
-> Launch server.js
+See code for running test
 
-## Test
+### Test API
+
+Explain what these tests test and why
 
 ```
 npm test
 ```
-### Var :
+
+### Test for coverage
+
+Explain what these tests test and why
 
 ```
-SERV_ENV=test nyc mocha --timeout 10000
+npm run coverage
 ```
-> Set ENV to test
 
-> Launch nyc -> Istanbul
+## Versioning
 
-> Launch mocha -> test
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
 
-> Set timeout to 10 secs
+## Authors
+
+* **Nathan PREVOST** - *Initial work* - [nathanprvst](https://github.com/nathanprvst)
 
 ## License
-[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+This project is licensed under the Apache Licence 2.0 - see the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) file for details

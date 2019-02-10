@@ -19,13 +19,13 @@
   },
   "homepage": "https://github.com/chefop/api#readme",
   "devDependencies": {
-    "@commitlint/cli": "^7.4.0",
+    "@commitlint/cli": "^7.5.1",
     "@commitlint/config-conventional": "^7.3.1",
     "chai": "^3.5.0",
-    "chai-http": "^2.0.1",
+    "chai-http": "^4.2.1",
     "coveralls": "^3.0.2",
     "husky": "^1.3.1",
-    "mocha": "^2.4.5",
+    "mocha": "^5.2.0",
     "mocha-lcov-reporter": "^1.3.0",
     "mongodb-memory-server": "^3.0.0",
     "nyc": "^13.2.0"
@@ -41,8 +41,8 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.4.0",
-    "mongoose": "^5.4.10",
+    "mongoose": "^5.4.11",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.9"
+    "nodemon": "^1.18.10"
   }
 }
