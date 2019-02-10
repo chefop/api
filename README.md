@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/chefop/api.svg?branch=develop)](https://travis-ci.com/chefop/api)
+[![Coverage Status](https://coveralls.io/repos/github/chefop/api/badge.svg?branch=develop)](https://coveralls.io/github/chefop/api?branch=develop)
 
 # Application
 
