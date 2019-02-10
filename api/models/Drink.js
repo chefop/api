@@ -1,71 +1,72 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-DrinksSchema = new mongoose.Schema({
-
-  name: {
+const DrinksSchema = new mongoose.Schema(
+  {
+    name: {
       type: String,
       required: [true, 'Name is required.'],
-      unique: true
-  },
+      unique: true,
+    },
 
-  description: {
+    description: {
       type: String,
-      default: ''
-  },
+      default: '',
+    },
 
-  df_price: {
+    df_price: {
       type: Number,
       required: [true, 'Price is required.'],
-      min: [0, 'Price must be greater than 0.']
-  },
+      min: [0, 'Price must be greater than 0.'],
+    },
 
-  vat: {
+    vat: {
       type: Number,
       required: [true, 'Taxes are required.'],
-      min: [0, 'Taxes must be greater than 0.']
-  },
+      min: [0, 'Taxes must be greater than 0.'],
+    },
 
-  quantity: {
+    quantity: {
       type: Number,
       default: 0,
-      min: [0, 'Quantity must be greater than 0.']
-  },
+      min: [0, 'Quantity must be greater than 0.'],
+    },
 
-  allergen: {
+    allergen: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Allergen"
-  },
+      ref: 'Allergen',
+    },
 
-  photo: {
+    photo: {
       type: String,
-      default: ''
-  },
+      default: '',
+    },
 
-  volume: {
+    volume: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Volume"
-  },
+      ref: 'Volume',
+    },
 
-  alcohol: {
+    alcohol: {
       type: Boolean,
-      required: [true, 'Alcohol is required.']
-  },
+      required: [true, 'Alcohol is required.'],
+    },
 
-  cold_drink: {
+    cold_drink: {
       type: Boolean,
-      required: [true, 'Cold drink is required.']
-  }
+      required: [true, 'Cold drink is required.'],
+    },
+  },
+  {
+    timestamp: true,
+    shardKey: {
+      _id: 'hashed',
+    },
+  },
+);
 
-}, {
-  timestamp: true,
-  shardKey: {
-      _id: "hashed"
-  }
-});
-
-DrinksSchema.methods.toJSON = function() {
-    const obj = this.toObject();
-    return obj;
+DrinksSchema.methods.toJSON = function toJSON() {
+  const obj = this.toObject();
+  return obj;
 };
 
-module.exports = mongoose.model("Drinks", DrinksSchema);
+module.exports = mongoose.model('Drinks', DrinksSchema);

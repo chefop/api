@@ -1,21 +1,22 @@
-const mongoose = require("mongoose");
-const MainCourse = require('../api/models/MainCourse');
+const mongoose = require('mongoose');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const MainCourse = require('../api/models/MainCourse');
 const server = require('../app');
 
 const config = require('../config/config');
 
-let should = chai.should();
+const should = chai.should();
 
 chai.use(chaiHttp);
 
 describe(`Test on BDD : test. For : MainCourse`, () => {
-
   before((done) => {
-    mongoose.set('useCreateIndex', true)
-    mongoose.connect(`mongodb://localhost:27017/test`, { useNewUrlParser: true });
+    mongoose.set('useCreateIndex', true);
+    mongoose.connect(`mongodb://localhost:27017/test`, {
+      useNewUrlParser: true,
+    });
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error'));
     db.once('open', function() {
@@ -26,15 +27,16 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
 
   describe('/POST main course', () => {
     it('it should POST on main course with data', (done) => {
-      let mainCourse = {
+      const mainCourse = {
         name: 'Nom test',
         description: 'Description test',
         df_price: 10,
         vat: 20,
         quantity: 30,
         photo: 'Photo test',
-      }
-      chai.request(server)
+      };
+      chai
+        .request(server)
         .post('/mainCourses')
         .send(mainCourse)
         .end((err, res) => {
@@ -46,7 +48,8 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
 
   describe('/POST main courses', () => {
     it('it should POST on main courses with empty body', (done) => {
-      chai.request(server)
+      chai
+        .request(server)
         .post('/mainCourses')
         .end((err, res) => {
           res.should.have.status(400);
@@ -57,10 +60,11 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
 
   describe('/POST main course', () => {
     it('it should POST on main course with empty data', (done) => {
-      let mainCourse = {
-        name: "",
-      }
-      chai.request(server)
+      const mainCourse = {
+        name: '',
+      };
+      chai
+        .request(server)
         .post('/mainCourses')
         .send(mainCourse)
         .end((err, res) => {
@@ -72,7 +76,8 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
 
   describe('/GET main courses', () => {
     it('it should GET all the main courses', (done) => {
-      chai.request(server)
+      chai
+        .request(server)
         .get('/mainCourses')
         .end((err, res) => {
           res.should.be.json;
@@ -93,24 +98,23 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
         quantity: 30,
         photo: 'Photo test',
       });
-      mainCourse
-        .save()
-        .then(result => {
-          chai.request(server)
-            .get('/mainCourses/'+result.id)
-            .end(function(err, res){
-              res.should.be.json;
-              res.should.have.status(200);
-              res.should.be.an('object');
-              result.should.have.property('name');
-              result.should.have.property('description');
-              result.should.have.property('df_price');
-              result.should.have.property('vat');
-              result.should.have.property('quantity');
-              result.should.have.property('photo');
-              done();
-            });
-        });
+      mainCourse.save().then((result) => {
+        chai
+          .request(server)
+          .get('/mainCourses/' + result.id)
+          .end(function(err, res) {
+            res.should.be.json;
+            res.should.have.status(200);
+            res.should.be.an('object');
+            result.should.have.property('name');
+            result.should.have.property('description');
+            result.should.have.property('df_price');
+            result.should.have.property('vat');
+            result.should.have.property('quantity');
+            result.should.have.property('photo');
+            done();
+          });
+      });
     });
   });
 
@@ -124,17 +128,16 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
         quantity: 30,
         photo: 'Photo test',
       });
-      mainCourse
-        .save()
-        .then(result => {
-          chai.request(server)
-            .get('/mainCourses/123')
-            .end(function(err, res){
-              res.should.be.json;
-              res.should.have.status(400);
-              done();
-            });
-        });
+      mainCourse.save().then((result) => {
+        chai
+          .request(server)
+          .get('/mainCourses/123')
+          .end(function(err, res) {
+            res.should.be.json;
+            res.should.have.status(400);
+            done();
+          });
+      });
     });
   });
 
@@ -150,10 +153,11 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
       });
       mainCourse
         .save() // Save starter
-        .then(result => {
-          chai.request(server)
-            .delete('/mainCourses/'+result.id)
-            .end(function(err, res){
+        .then((result) => {
+          chai
+            .request(server)
+            .delete(`/mainCourses/${result.id}`)
+            .end(function(err, res) {
               res.should.be.json;
               res.should.have.status(200);
               res.should.be.an('object');
@@ -181,10 +185,11 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
       });
       mainCourse
         .save() // Save starter
-        .then(result => {
-          chai.request(server)
+        .then((result) => {
+          chai
+            .request(server)
             .delete('/mainCourses/123')
-            .end(function(err, res){
+            .end(function(err, res) {
               res.should.be.json;
               res.should.have.status(400);
               done();
@@ -201,28 +206,28 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
         df_price: 10,
         vat: 20,
       });
-      mainCourse
-        .save()
-        .then(result => {
-          chai.request(server)
-            .get('/mainCourses/'+result.id)
-            .end(function(err, res){
-              chai.request(server)
-                .put('/mainCourses/'+result.id)
-                .send({
-                    name: 'Nouveau nom',
-                    description: 'Nouvelle description',
-                    df_price: 2,
-                    vat: 4
-                  })
-                .end(function(error, response){
-                  response.should.have.status(200);
-                  response.should.be.json;
-                  response.body.should.be.a('object');
-                  done();
+      mainCourse.save().then((result) => {
+        chai
+          .request(server)
+          .get('/mainCourses/' + result.id)
+          .end(function(err, res) {
+            chai
+              .request(server)
+              .put('/mainCourses/' + result.id)
+              .send({
+                name: 'Nouveau nom',
+                description: 'Nouvelle description',
+                df_price: 2,
+                vat: 4,
+              })
+              .end(function(error, response) {
+                response.should.have.status(200);
+                response.should.be.json;
+                response.body.should.be.a('object');
+                done();
               });
-            });
-        });
+          });
+      });
     });
   });
 
@@ -234,27 +239,27 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
         df_price: 10,
         vat: 20,
       });
-      mainCourse
-        .save()
-        .then(result => {
-          chai.request(server)
-            .get('/mainCourses/'+result.id)
-            .end(function(err, res){
-              chai.request(server)
-                .put('/mainCourses/123')
-                .send({
-                    name: 'Nouveau nom',
-                    description: 'Nouvelle description',
-                    df_price: 2,
-                    vat: 4
-                  })
-                .end(function(error, response){
-                  response.should.have.status(400);
-                  response.should.be.json;
-                  done();
+      mainCourse.save().then((result) => {
+        chai
+          .request(server)
+          .get('/mainCourses/' + result.id)
+          .end(function(err, res) {
+            chai
+              .request(server)
+              .put('/mainCourses/123')
+              .send({
+                name: 'Nouveau nom',
+                description: 'Nouvelle description',
+                df_price: 2,
+                vat: 4,
+              })
+              .end(function(error, response) {
+                response.should.have.status(400);
+                response.should.be.json;
+                done();
               });
-            });
-        });
+          });
+      });
     });
   });
 
@@ -266,30 +271,29 @@ describe(`Test on BDD : test. For : MainCourse`, () => {
         df_price: 10,
         vat: 20,
         quantity: 30,
-        photo: 'Photo test'
+        photo: 'Photo test',
       });
-      mainCourse
-        .save()
-        .then(result => {
-          chai.request(server)
-            .get('/mainCourses/'+result.id)
-            .end(function(err, res){
-              chai.request(server)
-                .put('/mainCourses/'+result.id)
-                .send({})
-                .end(function(error, response){
-                  response.should.have.status(500);
-                  done();
+      mainCourse.save().then((result) => {
+        chai
+          .request(server)
+          .get('/mainCourses/' + result.id)
+          .end(function(err, res) {
+            chai
+              .request(server)
+              .put('/mainCourses/' + result.id)
+              .send({})
+              .end(function(error, response) {
+                response.should.have.status(500);
+                done();
               });
-            });
-        });
+          });
+      });
     });
   });
 
-  after(function(done){
-    mongoose.connection.db.dropDatabase(function(){
+  after(function(done) {
+    mongoose.connection.db.dropDatabase(function() {
       mongoose.connection.close(done);
     });
   });
-
 });

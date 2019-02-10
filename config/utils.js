@@ -1,5 +1,5 @@
 module.exports = {
-    requestIsEmpty(body) {
-        return !body || Object.keys(body).length === 0;
-    }
-}
+  requestIsEmpty(body) {
+    return !body || Object.keys(body).length === 0;
+  },
+};

@@ -1,5 +1,6 @@
 // Call all require
 const express = require('express');
+
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -7,8 +8,11 @@ const mongoose = require('mongoose');
 const config = require('./config/config');
 
 // Connexion to mogoose
-mongoose.set('useCreateIndex', true)
-mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`, { useNewUrlParser: true });
+mongoose.set('useCreateIndex', true);
+mongoose.connect(
+  `mongodb://${config.db.host}:${config.db.port}/${config.db.name}`,
+  { useNewUrlParser: true },
+);
 
 // Parsing data
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,22 +40,22 @@ app.use('/tables', tables);
 
 // Middleware
 app.use((req, res, next) => {
-    next();
-})
-
-app.use((req, res, next) => {
-    const error = new Error('Not Found');
-    error.status = 404;
-    next(error);
+  next();
 });
 
-app.use((error, req, res, next) => {
-    res.status(error.status || 500);
-    res.json({
-        error: {
-            message: error.message
-        }
-    });
+app.use((req, res, next) => {
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
+});
+
+app.use((error, req, res) => {
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message,
+    },
+  });
 });
 
 module.exports = app;
