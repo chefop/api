@@ -1,13 +1,17 @@
 language: node_js
 node_js:
   - "10.13.0"
+env:
+  - DB_HOST=localhost
+  - DB_PORT=27017
+  - DB_NAME_TEST=test
 services:
   - mongodb
 install:
   - npm i
 before_script:
   - sleep 15
-  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+  - mongo test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
 script:
   - npm test
 notification:
