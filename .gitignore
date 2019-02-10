@@ -1,4 +1,5 @@
 .DS_Store
+.coveralls.yml
 package-lock.json
 
 # Logs
