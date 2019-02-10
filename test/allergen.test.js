@@ -11,13 +11,12 @@ let should = chai.should();
 
 chai.use(chaiHttp);
 
-describe(`Test on BDD : ${config.db.name}. For : Allergen`, () => {
+describe(`Test on BDD : test. For : Allergen`, () => {
 
   before((done) => {
     mongoose.set('useCreateIndex', true)
-    mongoose.connect(`mongodb://${config.db.host}:${config.db.port}/${config.db.name}`, { useNewUrlParser: true });
+    mongoose.connect(`mongodb://localhost:27017/test`, { useNewUrlParser: true });
     const db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'connection error'));
     db.once('open', function() {
       console.log('We are connected to test database!');
       done();

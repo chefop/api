@@ -3,12 +3,12 @@ node_js:
   - "10.13.0"
 services:
   - mongodb
-before_install:
-  - mkdir -p data/db
 install:
   - npm i
+before_script:
+  - sleep 15
+  - mongo test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
 script:
-  - mongod
   - npm test
 notification:
   email: false
