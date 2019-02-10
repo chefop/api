@@ -3,10 +3,12 @@ node_js:
   - "10.13.0"
 services:
   - mongodb
+before_install:
+  - mkdir -p data/db
 install:
   - npm i
 script:
   - mongod
-  - SERV_ENV=test nyc mocha --timeout 10000
+  - npm test
 notification:
   email: false
