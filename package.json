@@ -1,0 +1,48 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "App for web app 📟",
+  "main": "index.js",
+  "scripts": {
+    "start": "SERV_ENV=dev nodemon server.js",
+    "test": "SERV_ENV=test nyc mocha --timeout 10000",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chefop/api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chefop/api/issues"
+  },
+  "homepage": "https://github.com/chefop/api#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^7.4.0",
+    "@commitlint/config-conventional": "^7.3.1",
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "coveralls": "^3.0.2",
+    "husky": "^1.3.1",
+    "mocha": "^2.4.5",
+    "mocha-lcov-reporter": "^1.3.0",
+    "mongodb-memory-server": "^3.0.0",
+    "nyc": "^13.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.10",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.9"
+  }
+}
