@@ -1,23 +1,24 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-BakingSchema = new mongoose.Schema({
+const BakingSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Name is required.'],
+      unique: true,
+    },
+  },
+  {
+    timestamp: true,
+    shardKey: {
+      _id: 'hashed',
+    },
+  },
+);
 
-  name: {
-    type: String,
-    required: [true, 'Name is required.'],
-    unique: true
-  }
-
-}, {
-  timestamp: true,
-  shardKey: {
-    _id: "hashed"
-  }
-});
-
-BakingSchema.methods.toJSON = function() {
+BakingSchema.methods.toJSON = function toJson() {
   const obj = this.toObject();
   return obj;
 };
 
-module.exports = mongoose.model("Baking", BakingSchema);
+module.exports = mongoose.model('Baking', BakingSchema);
