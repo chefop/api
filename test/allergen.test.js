@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
-const chai = require('chai');
-const { describe, before, it } = require('chai');
+const chai = require('chai');‡
 const chaiHttp = require('chai-http');
 const Allergen = require('../api/models/Allergen');
 const server = require('../app');
