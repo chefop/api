@@ -1,23 +1,22 @@
 {
   "plugins": [
-      "prettier",
-      "security",
-      "mongodb"
+    "prettier",
+    "security",
+    "mongodb"
   ],
   "extends": [
-      "airbnb-base",
-  "plugin:prettier/recommended",
-  "plugin:security/recommended"
+    "airbnb-base",
+    "plugin:prettier/recommended",
+    "plugin:security/recommended"
   ],
   "rules" : {
-      "prettier/prettier": ["error", {
-        "singleQuote": true,
-        "trailingComma": "all",
-        "arrowParens": "always"
-      }],
-      "no-console" : "off",
-      "no-underscore-dangle": "off",
-      "consistent-return": "off",
-      "no-useless-escape": "off"
+    "prettier/prettier": ["error", {
+      "singleQuote": true,
+      "trailingComma": "all",
+      "arrowParens": "always"
+    }],
+    "no-console" : "off",
+    "no-underscore-dangle": "off",
+    "consistent-return": "off",
   }
 }
