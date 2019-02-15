@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const DessertSchema = new mongoose.Schema(
+const MenuSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -25,20 +25,19 @@ const DessertSchema = new mongoose.Schema(
       min: [0, 'Taxes must be greater than 0.'],
     },
 
-    quantity: {
-      type: Number,
-      default: 0,
-      min: [0, 'Quantity must be greater than 0.'],
-    },
-
-    allergen: {
+    starter: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Allergen',
+      ref: 'Starter',
     },
 
-    photo: {
-      type: String,
-      default: '',
+    mainCourse: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'MainCourse',
+    },
+
+    Dessert: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Dessert',
     },
   },
   {
@@ -49,9 +48,9 @@ const DessertSchema = new mongoose.Schema(
   },
 );
 
-DessertSchema.methods.toJSON = function toJson() {
+MenuSchema.methods.toJSON = function toJson() {
   const obj = this.toObject();
   return obj;
 };
 
-module.exports = mongoose.model('Dessert', DessertSchema);
+module.exports = mongoose.model('Menu', MenuSchema);

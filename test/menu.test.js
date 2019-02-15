@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const Allergen = require('../api/models/Allergen');
+const Menu = require('../api/models/Menu');
 const server = require('../app');
 
 const config = require('../config/config');
@@ -11,7 +11,7 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe(`Test on BDD : test. For : Allergen`, () => {
+describe(`Test on BDD : test. For : Menu`, () => {
   before((done) => {
     mongoose.set('useCreateIndex', true);
     mongoose.connect(`mongodb://localhost:27017/test`, {
@@ -24,15 +24,18 @@ describe(`Test on BDD : test. For : Allergen`, () => {
     });
   });
 
-  describe('/POST allergen', () => {
-    it('it should POST on allergen with data', (done) => {
-      const allergen = {
+  describe('/POST menu', () => {
+    it('it should POST on menu with data', (done) => {
+      const menu = {
         name: 'Nom test with empty data',
+        description: 'Description test',
+        df_price: 10,
+        vat: 20,
       };
       chai
         .request(server)
-        .post('/allergens')
-        .send(allergen)
+        .post('/menus')
+        .send(menu)
         .end((err, res) => {
           res.should.have.status(200);
           done();
@@ -40,11 +43,11 @@ describe(`Test on BDD : test. For : Allergen`, () => {
     });
   });
 
-  describe('/POST allergen', () => {
-    it('it should POST on allergen with empty body', (done) => {
+  describe('/POST menu', () => {
+    it('it should POST on menu with empty body', (done) => {
       chai
         .request(server)
-        .post('/allergens')
+        .post('/menus')
         .end((err, res) => {
           res.should.have.status(400);
           done();
@@ -52,15 +55,15 @@ describe(`Test on BDD : test. For : Allergen`, () => {
     });
   });
 
-  describe('/POST allergen', () => {
-    it('it should POST on allergen with empty data', (done) => {
-      const allergen = {
+  describe('/POST menu', () => {
+    it('it should POST on menu with empty data', (done) => {
+      const menu = {
         name: '',
       };
       chai
         .request(server)
-        .post('/allergens')
-        .send(allergen)
+        .post('/menus')
+        .send(menu)
         .end((err, res) => {
           res.should.have.status(500);
           done();
@@ -68,11 +71,11 @@ describe(`Test on BDD : test. For : Allergen`, () => {
     });
   });
 
-  describe('/GET allergens', () => {
-    it('it should GET all the allergens', (done) => {
+  describe('/GET menus', () => {
+    it('it should GET all the menus', (done) => {
       chai
         .request(server)
-        .get('/allergens')
+        .get('/menus')
         .end((err, res) => {
           res.should.be.json;
           res.should.have.status(200);
@@ -82,15 +85,18 @@ describe(`Test on BDD : test. For : Allergen`, () => {
     });
   });
 
-  describe('/GET allergen', () => {
-    it('it should GET one allergen', function(done) {
-      const allergen = new Allergen({
+  describe('/GET menu', () => {
+    it('it should GET one menu', function(done) {
+      const menu = new Menu({
         name: 'Nom test get one',
+        description: 'Description test',
+        df_price: 10,
+        vat: 20,
       });
-      allergen.save().then((result) => {
+      menu.save().then((result) => {
         chai
           .request(server)
-          .get(`/allergens/${result.id}`)
+          .get(`/menus/${result.id}`)
           .end(function(err, res) {
             res.should.be.json;
             res.should.have.status(200);
@@ -102,15 +108,18 @@ describe(`Test on BDD : test. For : Allergen`, () => {
     });
   });
 
-  describe('/GET allergen', () => {
-    it('it should GET one allergen with empty id', function(done) {
-      const allergen = new Allergen({
+  describe('/GET menu', () => {
+    it('it should GET one menu with empty id', function(done) {
+      const menu = new Menu({
         name: 'Nom test get one with empty id',
+        description: 'Description test',
+        df_price: 10,
+        vat: 20,
       });
-      allergen.save().then((result) => {
+      menu.save().then((result) => {
         chai
           .request(server)
-          .get('/allergens/123')
+          .get('/menus/123')
           .end(function(err, res) {
             res.should.be.json;
             res.should.have.status(400);
@@ -120,35 +129,44 @@ describe(`Test on BDD : test. For : Allergen`, () => {
     });
   });
 
-  describe('/DELETE allergen', () => {
-    it('it should DELETE one allergen', function(done) {
-      const allergen = new Allergen({
+  describe('/DELETE menu', () => {
+    it('it should DELETE one menu', function(done) {
+      const menu = new Menu({
         name: 'Nom test delete one',
+        description: 'Description test',
+        df_price: 10,
+        vat: 20,
       });
-      allergen.save().then((result) => {
+      menu.save().then((result) => {
         chai
           .request(server)
-          .delete(`/allergens/${result.id}`)
+          .delete(`/menus/${result.id}`)
           .end(function(err, res) {
             res.should.be.json;
             res.should.have.status(200);
             res.should.be.an('object');
             result.should.have.property('name');
+            result.should.have.property('description');
+            result.should.have.property('df_price');
+            result.should.have.property('vat');
             done();
           });
       });
     });
   });
 
-  describe('/DELETE allergen', () => {
-    it('it should DELETE one allergen with enpty id', function(done) {
-      const allergen = new Allergen({
+  describe('/DELETE menu', () => {
+    it('it should DELETE one menu with enpty id', function(done) {
+      const menu = new Menu({
         name: 'Nom test delete one',
+        description: 'Description test',
+        df_price: 10,
+        vat: 20,
       });
-      allergen.save().then((result) => {
+      menu.save().then((result) => {
         chai
           .request(server)
-          .delete('/allergens/123')
+          .delete('/menus/123')
           .end(function(err, res) {
             res.should.be.json;
             res.should.have.status(400);
@@ -158,21 +176,27 @@ describe(`Test on BDD : test. For : Allergen`, () => {
     });
   });
 
-  describe('/PUT allergen', () => {
-    it('it should PUT one allergen', function(done) {
-      const allergen = new Allergen({
+  describe('/PUT menu', () => {
+    it('it should PUT one menu', function(done) {
+      const menu = new Menu({
         name: 'Nom test put one',
+        description: 'Description test',
+        df_price: 10,
+        vat: 20,
       });
-      allergen.save().then((result) => {
+      menu.save().then((result) => {
         chai
           .request(server)
-          .get(`/allergens/${result.id}`)
+          .get(`/menus/${result.id}`)
           .end(function(err, res) {
             chai
               .request(server)
-              .put(`/allergens/${result.id}`)
+              .put(`/menus/${result.id}`)
               .send({
                 name: 'Nouveau nom',
+                description: 'Description test',
+                df_price: 10,
+                vat: 20,
               })
               .end(function(error, response) {
                 response.should.have.status(200);
@@ -185,19 +209,22 @@ describe(`Test on BDD : test. For : Allergen`, () => {
     });
   });
 
-  describe('/PUT allergen', () => {
-    it('it should PUT one allergen with empty id', function(done) {
-      const allergen = new Allergen({
+  describe('/PUT menu', () => {
+    it('it should PUT one menu with empty id', function(done) {
+      const menu = new Menu({
         name: 'Nom test put one',
+        description: 'Description test',
+        df_price: 10,
+        vat: 20,
       });
-      allergen.save().then((result) => {
+      menu.save().then((result) => {
         chai
           .request(server)
-          .get(`/allergens/${result.id}`)
+          .get(`/menus/${result.id}`)
           .end(function(err, res) {
             chai
               .request(server)
-              .put('/allergens/123')
+              .put('/menus/123')
               .send({
                 name: 'Nouveau nom',
               })
@@ -211,19 +238,22 @@ describe(`Test on BDD : test. For : Allergen`, () => {
     });
   });
 
-  describe('/PUT allergen', () => {
-    it('it should PUT one allergen with empty data', function(done) {
-      const allergen = new Allergen({
+  describe('/PUT menu', () => {
+    it('it should PUT one menu with empty data', function(done) {
+      const menu = new Menu({
         name: 'Nom test put one with empty data',
+        description: 'Description test',
+        df_price: 10,
+        vat: 20,
       });
-      allergen.save().then((result) => {
+      menu.save().then((result) => {
         chai
           .request(server)
-          .get(`/allergens/${result.id}`)
+          .get(`/menus/${result.id}`)
           .end(function(err, res) {
             chai
               .request(server)
-              .put(`/allergens/${result.id}`)
+              .put(`/menus/${result.id}`)
               .send({})
               .end(function(error, response) {
                 response.should.have.status(500);

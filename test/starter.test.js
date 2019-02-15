@@ -1,21 +1,22 @@
-const mongoose = require("mongoose");
-const Starter = require('../api/models/Starter');
+const mongoose = require('mongoose');
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
+const Starter = require('../api/models/Starter');
 const server = require('../app');
 
 const config = require('../config/config');
 
-let should = chai.should();
+const should = chai.should();
 
 chai.use(chaiHttp);
 
 describe(`Test on BDD : test. For : Starter`, () => {
-
   before((done) => {
-    mongoose.set('useCreateIndex', true)
-    mongoose.connect(`mongodb://localhost:27017/test`, { useNewUrlParser: true });
+    mongoose.set('useCreateIndex', true);
+    mongoose.connect(`mongodb://localhost:27017/test`, {
+      useNewUrlParser: true,
+    });
     const db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error'));
     db.once('open', function() {
@@ -26,15 +27,16 @@ describe(`Test on BDD : test. For : Starter`, () => {
 
   describe('/POST starter', () => {
     it('it should POST on starter with data', (done) => {
-      let starter = {
+      const starter = {
         name: 'Nom test',
         description: 'Description test',
         df_price: 10,
         vat: 20,
         quantity: 30,
         photo: 'Photo test',
-      }
-      chai.request(server)
+      };
+      chai
+        .request(server)
         .post('/starters')
         .send(starter)
         .end((err, res) => {
@@ -46,7 +48,8 @@ describe(`Test on BDD : test. For : Starter`, () => {
 
   describe('/POST starter', () => {
     it('it should POST on starter with empty body', (done) => {
-      chai.request(server)
+      chai
+        .request(server)
         .post('/starters')
         .end((err, res) => {
           res.should.have.status(400);
@@ -57,10 +60,11 @@ describe(`Test on BDD : test. For : Starter`, () => {
 
   describe('/POST starter', () => {
     it('it should POST on starter with empty data', (done) => {
-      let starter = {
-        name: "",
-      }
-      chai.request(server)
+      const starter = {
+        name: '',
+      };
+      chai
+        .request(server)
         .post('/starters')
         .send(starter)
         .end((err, res) => {
@@ -72,7 +76,8 @@ describe(`Test on BDD : test. For : Starter`, () => {
 
   describe('/GET starters', () => {
     it('it should GET all the starters', (done) => {
-      chai.request(server)
+      chai
+        .request(server)
         .get('/starters')
         .end((err, res) => {
           res.should.be.json;
@@ -95,10 +100,11 @@ describe(`Test on BDD : test. For : Starter`, () => {
       });
       starter
         .save() // Save starter
-        .then(result => {
-          chai.request(server)
-            .get('/starters/'+result.id)
-            .end(function(err, res){
+        .then((result) => {
+          chai
+            .request(server)
+            .get(`/starters/${result.id}`)
+            .end(function(err, res) {
               res.should.be.json;
               res.should.have.status(200);
               res.should.be.an('object');
@@ -126,10 +132,11 @@ describe(`Test on BDD : test. For : Starter`, () => {
       });
       starter
         .save() // Save starter
-        .then(result => {
-          chai.request(server)
+        .then((result) => {
+          chai
+            .request(server)
             .get('/starters/123')
-            .end(function(err, res){
+            .end(function(err, res) {
               res.should.be.json;
               res.should.have.status(400);
               done();
@@ -150,10 +157,11 @@ describe(`Test on BDD : test. For : Starter`, () => {
       });
       starter
         .save() // Save starter
-        .then(result => {
-          chai.request(server)
-            .delete('/starters/'+result.id)
-            .end(function(err, res){
+        .then((result) => {
+          chai
+            .request(server)
+            .delete(`/starters/${result.id}`)
+            .end(function(err, res) {
               res.should.be.json;
               res.should.have.status(200);
               res.should.be.an('object');
@@ -181,10 +189,11 @@ describe(`Test on BDD : test. For : Starter`, () => {
       });
       starter
         .save() // Save starter
-        .then(result => {
-          chai.request(server)
+        .then((result) => {
+          chai
+            .request(server)
             .delete('/starters/123')
-            .end(function(err, res){
+            .end(function(err, res) {
               res.should.be.json;
               res.should.have.status(400);
               done();
@@ -201,30 +210,30 @@ describe(`Test on BDD : test. For : Starter`, () => {
         df_price: 10,
         vat: 20,
         quantity: 30,
-        photo: 'Photo test'
+        photo: 'Photo test',
       });
-      starter
-        .save()
-        .then(result => {
-          chai.request(server)
-            .get('/starters/'+result.id)
-            .end(function(err, res){
-              chai.request(server)
-                .put('/starters/'+result.id)
-                .send({
-                    name: 'Nouveau nom',
-                    description: 'Nouvelle description',
-                    df_price: 2,
-                    vat: 4
-                  })
-                .end(function(error, response){
-                  response.should.have.status(200);
-                  response.should.be.json;
-                  response.body.should.be.a('object');
-                  done();
+      starter.save().then((result) => {
+        chai
+          .request(server)
+          .get(`/starters/${result.id}`)
+          .end(function(err, res) {
+            chai
+              .request(server)
+              .put(`/starters/${result.id}`)
+              .send({
+                name: 'Nouveau nom',
+                description: 'Nouvelle description',
+                df_price: 2,
+                vat: 4,
+              })
+              .end(function(error, response) {
+                response.should.have.status(200);
+                response.should.be.json;
+                response.body.should.be.a('object');
+                done();
               });
-            });
-        });
+          });
+      });
     });
   });
 
@@ -236,29 +245,29 @@ describe(`Test on BDD : test. For : Starter`, () => {
         df_price: 10,
         vat: 20,
         quantity: 30,
-        photo: 'Photo test'
+        photo: 'Photo test',
       });
-      starter
-        .save()
-        .then(result => {
-          chai.request(server)
-            .get('/starters/'+result.id)
-            .end(function(err, res){
-              chai.request(server)
-                .put('/starters/123')
-                .send({
-                    name: 'Nouveau nom',
-                    description: 'Nouvelle description',
-                    df_price: 2,
-                    vat: 4
-                  })
-                .end(function(error, response){
-                  response.should.have.status(400);
-                  response.should.be.json;
-                  done();
+      starter.save().then((result) => {
+        chai
+          .request(server)
+          .get(`/starters/${result.id}`)
+          .end(function(err, res) {
+            chai
+              .request(server)
+              .put('/starters/123')
+              .send({
+                name: 'Nouveau nom',
+                description: 'Nouvelle description',
+                df_price: 2,
+                vat: 4,
+              })
+              .end(function(error, response) {
+                response.should.have.status(400);
+                response.should.be.json;
+                done();
               });
-            });
-        });
+          });
+      });
     });
   });
 
@@ -270,30 +279,29 @@ describe(`Test on BDD : test. For : Starter`, () => {
         df_price: 10,
         vat: 20,
         quantity: 30,
-        photo: 'Photo test'
+        photo: 'Photo test',
       });
-      starter
-        .save()
-        .then(result => {
-          chai.request(server)
-            .get('/starters/'+result.id)
-            .end(function(err, res){
-              chai.request(server)
-                .put('/starters/'+result.id)
-                .send({})
-                .end(function(error, response){
-                  response.should.have.status(500);
-                  done();
+      starter.save().then((result) => {
+        chai
+          .request(server)
+          .get(`/starters/${result.id}`)
+          .end(function(err, res) {
+            chai
+              .request(server)
+              .put(`/starters/${result.id}`)
+              .send({})
+              .end(function(error, response) {
+                response.should.have.status(500);
+                done();
               });
-            });
-        });
+          });
+      });
     });
   });
 
-  after(function(done){
-    mongoose.connection.db.dropDatabase(function(){
+  after(function(done) {
+    mongoose.connection.db.dropDatabase(function() {
       mongoose.connection.close(done);
     });
   });
-
 });
