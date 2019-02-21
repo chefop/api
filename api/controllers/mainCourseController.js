@@ -14,7 +14,10 @@ module.exports = {
       const mainCourse = await MainCourse.find()
         .skip(offset)
         .limit(limit)
-        .sort({ created_at: 1 });
+        .sort({ created_at: 1 })
+        .populate({
+          path: 'allergen baking',
+        });
 
       res.status(200).json({
         // If ok status 200, send message and datas

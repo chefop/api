@@ -14,7 +14,10 @@ module.exports = {
       const drink = await Drink.find()
         .skip(offset)
         .limit(limit)
-        .sort({ created_at: 1 });
+        .sort({ created_at: 1 })
+        .populate({
+          path: 'allergen volume',
+        });
 
       res.status(200).json({
         // If ok status 200, send message and datas
