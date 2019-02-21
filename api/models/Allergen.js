@@ -21,4 +21,4 @@ AllergenSchema.methods.toJSON = function toJson() {
   return obj;
 };
 
-module.exports = mongoose.model('ALlergen', AllergenSchema);
+module.exports = mongoose.model('Allergen', AllergenSchema);
