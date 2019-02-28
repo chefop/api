@@ -31,20 +31,26 @@ const MainCourseSchema = new mongoose.Schema(
       min: [0, 'Quantity must be greater than 0.'],
     },
 
-    allergen: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Allergen',
-    },
+    allergen: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Allergen',
+        default: [],
+      },
+    ],
 
     photo: {
       type: String,
       default: '',
     },
 
-    baking: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Baking',
-    },
+    baking: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Baking',
+        default: [],
+      },
+    ],
   },
   {
     timestamp: true,

@@ -25,20 +25,29 @@ const MenuSchema = new mongoose.Schema(
       min: [0, 'Taxes must be greater than 0.'],
     },
 
-    starter: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Starter',
-    },
+    starter: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Starter',
+        default: [],
+      },
+    ],
 
-    mainCourse: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'MainCourse',
-    },
+    mainCourse: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'MainCourse',
+        default: [],
+      },
+    ],
 
-    Dessert: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Dessert',
-    },
+    Dessert: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Dessert',
+        default: [],
+      },
+    ],
   },
   {
     timestamp: true,

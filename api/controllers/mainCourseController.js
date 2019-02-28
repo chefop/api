@@ -91,6 +91,7 @@ module.exports = {
         });
       }
     } catch (err) {
+      console.log(err);
       res.status(500).json({
         message: err.message, // If ok status 500, send message
       });
