@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const config = require('./config/config');
 
@@ -13,6 +14,8 @@ mongoose.connect(
   `mongodb://${config.db.host}:${config.db.port}/${config.db.name}`,
   { useNewUrlParser: true },
 );
+
+app.use(cors());
 
 // Parsing data
 app.use(bodyParser.urlencoded({ extended: true }));
